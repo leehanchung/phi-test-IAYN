@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "phi-test-iayn"
+version = "0.1.0"
+description = "Finetuning on the Test Set Is All You Need"
+authors = ["leehanchung <lee.hanchung@gmail.com>"]
+readme = "README.md"
+packages = [{include = "phi_test_iayn"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+python-dotenv = "^1.0.0"
+datasets = "^2.14.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
