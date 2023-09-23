@@ -17,8 +17,13 @@ tgi_image = (
 def merge(run_id: str, commit: bool = False):
     from text_generation_server.utils.peft import download_and_unload_peft
 
-    os.mkdir(f"/results/{run_id}/merged")
-    subprocess.call(f"cp /results/{run_id}/*.* /results/{run_id}/merged", shell=True)
+    # os.makedirs(f"/results/{run_id}/merged")
+    # os.mkdir(f"/results/{run_id}/merged")
+    # print([f for f in os.listdir(f"/results/{run_id}/")])
+    subprocess.call(f"ls /results/{run_id}", shell=True)
+    subprocess.call(f"mkdir -p /results/{run_id}/merged", shell=True)
+
+    subprocess.call(f"cp /results/{run_id}/* /results/{run_id}/merged", shell=True)
 
     print(f"Merging weights for fine-tuned {run_id=}.")
     download_and_unload_peft(f"/results/{run_id}/merged", None, False)

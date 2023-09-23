@@ -58,9 +58,10 @@ def main(
     dataset: str,
     base: str = "chat7",
     run_id: str = "",
-    num_epochs: int = 10,
+    num_epochs: int = 1,
     batch_size: int = 16,
 ):
+    import os
     print(f"Welcome to Modal Llama fine-tuning.")
 
     model_name = BASE_MODELS[base]
@@ -75,10 +76,15 @@ def main(
         run_id = f"{base}-{run_id}"
 
     print(f"Beginning run {run_id=}.")
+    output_dir = f"/results/{run_id}"
+    print(f"output_dir: {output_dir}")
+    # os.mkdir(output_dir)
+    # print([f for f in os.listdir(output_dir)])
+
     train.remote(
         {
             "model_name": BASE_MODELS[base],
-            "output_dir": f"/results/{run_id}",
+            "output_dir": output_dir,
             "batch_size_training": batch_size,
             "lr": 3e-4,
             "num_epochs": num_epochs,
@@ -104,6 +110,8 @@ def main(
     )
 
     print(f"Training completed {run_id=}.")
+    print([f for f in os.listdir(output_dir)])
+
     print(
         f"Test: `modal run compare.py --base {base} --run-id {run_id} --prompt '...'`."
     )
